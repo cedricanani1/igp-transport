@@ -73,7 +73,7 @@
                                 </router-link>
                             </li>
                             <li v-if="user != null">
-                                <router-link :to="{name : 'Home'}">
+                                <router-link :to="{name : 'edit'}">
                                     <i class="ion-ios-contact-outline"></i><span>{{ user.nom }} {{ user.prenoms }} </span>
                                 </router-link>
                             </li>       

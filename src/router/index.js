@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Add from '../views/add-car.vue'
 import Login from '../views/login.vue'
 import Register from '../views/register.vue'
+import Edit from '../views/edit.vue'
 import About from '../views/About.vue'
 import Vehicules from '../views/Vehicule/Vehicules.vue'
 import Detail from '../views/Vehicule/vehicule-detail.vue'
@@ -32,6 +33,11 @@ const routes = [
     path: '/reg',
     name: 'register',
     component: Register
+  },
+  {
+    path: '/edit',
+    name: 'edit',
+    component: Edit
   },
   {
     path: '/Vehicule/vehicules',

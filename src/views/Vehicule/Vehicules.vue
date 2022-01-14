@@ -102,7 +102,8 @@
                                         <div class="single-browse-item text-center">
                                             <router-link :to="{name : 'Detail', params:{ id: vehicule.id}}">
                                             <div  v-if="vehicule.images[0]">
-                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+vehicule.images[0]"> 
+                                            <!-- <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+vehicule.images[0]"> --> 
+                                            <img :src="'http://192.168.1.11:8003/Car/'+vehicule.images[0]" :alt="vehicule.libelle">
                                             </div></router-link>                          
                                             <div class="car-content">
                                                 <ul class="car-meta">
@@ -131,7 +132,8 @@
                                         <div class="single-browse-item text-center">
                                             <router-link :to="{name : 'Detail', params:{ id: result.id}}">
                                             <div  v-if="result.images[0]">
-                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+result.images[0]"> 
+                                            <!-- <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+result.images[0]">  -->
+                                            <img :src="'http://192.168.1.11:8003/Car/'+result.images[0]" :alt="result.libelle">
                                             </div></router-link>                          
                                             <div class="car-content">
                                                 <ul class="car-meta">
@@ -193,44 +195,52 @@ export default {
     methods:{
         
         search_car: function (){
-            let app = this
-            let tab =[]
-            app.search.price = app.price.split(',')
-            console.log(app.search)
-             axios.post('/searchCar', app.search, { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
-             .then(function (reponse){
-                console.log('rep',reponse.data)
-                reponse.data.forEach(element => {
-                    
-                    app.imgs = element.photo
-                    tab = app.imgs.split(';')
-                    element.images = tab 
-                    element.images.pop()
-                    
-                });
-                app.results = reponse.data 
-                if (app.results.length==0)
-                {
+            if(this.search.type_id != null && this.search.marque_id != null){
+                let app = this
+                let tab =[]
+                app.search.price = app.price.split(',')
+                console.log(app.search)
+                axios.post('/searchCar', app.search, { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+                .then(function (reponse){
+                    console.log('rep',reponse.data)
+                    reponse.data.forEach(element => {
+                        
+                        app.imgs = element.photo
+                        tab = app.imgs.split(';')
+                        element.images = tab 
+                        element.images.pop()
+                        
+                    });
+                    app.results = reponse.data 
+                    if (app.results.length==0)
+                    {
+                        Swal.fire('Information',
+                            'Aucun résultat correspondant à votre recherche.',
+                            'info'
+                        )
+                    }
+                    else
+                    {
+                        Swal.fire('Information',
+                            app.results.length+' résultat(s) correspondant(s) à votre recherche.',
+                            'info'
+                        )
+                    }
+                })
+                .catch(function (error){
                     Swal.fire('Information',
-                        'Aucun résultat correspondant à votre recherche.',
-                        'info'
-                    )
-                }
-                else
-                {
-                    Swal.fire('Information',
-                        app.results.length+' résultat(s) correspondant(s) à votre recherche.',
-                        'info'
-                    )
-                }
-             })
-             .catch(function (error){
-                 Swal.fire('Information',
-                        'Une erreur s\'est produite veuillez réessayer.',
-                        'error'
-                    )
-                 console.log('err',error)
-             })
+                            'Une erreur s\'est produite veuillez réessayer.',
+                            'error'
+                        )
+                    console.log('err',error)
+                })
+            }
+            else{
+                Swal.fire('Information',
+                            'Renseignez TOUS les champs.',
+                            'warning'
+                        )
+            }
         }
     },
     mounted(){

@@ -71,39 +71,40 @@ export default {
   data() {
     return {
       formlog: {
-        email: "",
-        password: "",
+        email: '',
+        password: '',
       },
     };
   },
   components: {},
+  mounted(){
+    
+  },
   methods: {
-    loading: function (timeoutPeriod) {
-            setTimeout("location.reload(true);", timeoutPeriod);
-        },
     submit() {
-      axios
-        .post(
-           'https://igp-auth.lce-ci.com/api/auth/login'  /* "http://192.168.1.3:8004/api/auth/login" */,
+      axios.post(
+           /* 'https://igp-auth.lce-ci.com/api/auth/login' */  "http://192.168.1.11:8004/api/auth/login" ,
           this.formlog
         )
         .then(function (reponse) {
           console.log("rep", reponse.data);
           console.log(reponse.data.access_token);
-          localStorage.setItem("token", reponse.data.access_token)
-          localStorage.setItem('user', JSON.stringify(reponse.data.user))
-          Swal.fire({title: 'Succes',
-            text:'Connexion réussie.',
-            icon:'success',
-            showConfirmButton: false,
-            timer:3000
-          });
-          window.location.href = '/'
-          
+          if(reponse.data.access_token){
+              localStorage.setItem("token", reponse.data.access_token)
+            localStorage.setItem('user', JSON.stringify(reponse.data.user))
+            Swal.fire({title: 'Succes',
+              text:'Connexion réussie.',
+              icon:'success',
+              showConfirmButton: false,
+              timer:3000
+            });
+            window.location.href = '/'
+            } 
         })
         .catch((error) => {
+          
           Swal.fire({title: 'Erreur',
-            text:'Connexion échouée.',
+            text:'Une erreur s\'est produite.',
             icon:'error',
             showConfirmButton: false,
             timer:3000

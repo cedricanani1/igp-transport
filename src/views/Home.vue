@@ -197,8 +197,8 @@ export default {
         
     },
   mounted(){
-      /* this.user = JSON.parse(localStorage.getItem('user'))
-      console.log('us',this.user.nom) */
+      this.user = JSON.parse(localStorage.getItem('user'))
+      console.log('us',this.user) 
       console.log(store.state.token)
       let tab = []
       let app=this

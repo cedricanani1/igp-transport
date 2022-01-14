@@ -7,7 +7,8 @@
         <div class="inventory-image-gallery">
             <div class="inventory-gallery-active">
                 <div class="single-image-gallery">
-                    <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+newt[0]" >
+                    <!-- <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+newt[0]" > -->
+                    <img class="img" :src="'http://192.168.1.11:8003/Car/'+newt[0]" :alt="car.libelle">
                 </div>
             </div>
         </div>

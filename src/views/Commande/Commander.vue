@@ -35,7 +35,7 @@
                                 <h4 class="sidebar-title" style="text-align: center;">Détails de réservation</h4>
 
                                 <div class="dealer-contact-form">
-                                    <form >
+                                    <form @submit.prevent="comm">
                                         <label for="nom">Nom : </label>
                                         <div class="single-input">
                                             <input type="text" id="nom" v-model="dt.nom" required> 
@@ -68,7 +68,7 @@
                                         </div>
                                         <div>
                                             <br>
-                                            <button class="main-btn" @click="comm"> Valider la commande </button>
+                                            <button class="main-btn" > Valider la commande </button>
                                         </div>
                                     </form>
                                 </div>
@@ -92,7 +92,8 @@
                                                     <div class="col-lg-6">
                                                             <div class="dealer-author">
                                                                 <div class="author-image">
-                                                                <img class="img" :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+value.photo[0]" :alt="value.lib">
+                                                                <!-- <img class="img" :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+value.photo[0]" :alt="value.lib"> -->
+                                                                <img class="img" :src="'http://192.168.1.11:8003/Car/'+value.photo[0]" :alt="value.lib">
                                                                 </div>
                                                                 <div class="author-content">
                                                                 <router-link :to="{name : 'Detail', params:{ id: value.id}}">  <h4 class="author-name"> {{ value.lib }} </h4> </router-link>

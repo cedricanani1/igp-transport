@@ -132,17 +132,18 @@ export default ({
     data(){
         return{
             data: store.state.data,
-            user:null,
+            user:store.state.user,
         }
     },
     methods:{
         logout: function(){
-            axios.get('https://igp-auth.lce-ci.com/api/auth/logout', { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+            axios.get(/* 'https://igp-auth.lce-ci.com/api/auth/logout' */ "http://192.168.1.11:8004/api/auth/logout", { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
             .then(function (reponse){
                 Swal.fire({title:'Succes',
                     text:'Déconnecté correctement.',
                     icon:'success',
                     showConfirmButton: false,
+                    timer:3000
                 })
                 localStorage.removeItem('user')
                 store.state.token = null
@@ -161,8 +162,7 @@ export default ({
         }
     },
     mounted(){
-        this.user = JSON.parse(localStorage.getItem('user'))
-        console.log(this.user)
+      
     }
 })
 </script>

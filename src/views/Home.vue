@@ -188,6 +188,7 @@ export default {
   name: 'Home',
   data(){
      return{
+         user:null,
           populars:[],
           all:[],
      }
@@ -196,6 +197,8 @@ export default {
         
     },
   mounted(){
+      /* this.user = JSON.parse(localStorage.getItem('user'))
+      console.log('us',this.user.nom) */
       console.log(store.state.token)
       let tab = []
       let app=this

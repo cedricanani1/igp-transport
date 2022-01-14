@@ -18,19 +18,19 @@
                                     <p> {{ user.nom }} </p>
                                 </div>
                                 <div class="single-form">
-                                    <input type="text" placeholder="prenoms" required v-model="form.prenoms" >
+                                    <input type="text" placeholder="prenoms" required  >
                                     <p> {{ user.prenoms }} </p>
                                 </div>
                                 <div class="single-form">
-                                    <input type="text" placeholder="contact" required v-model="form.phone" >
+                                    <input type="text" placeholder="contact" required  >
                                     <p> {{ user.phone }} </p>
                                 </div>
                                 <div class="single-form">
-                                    <input type="text" placeholder="e-mail" required v-model="form.email" >
+                                    <input type="text" placeholder="e-mail" required  >
                                     <p> {{ user.email }} </p>
                                 </div>
                                 <div class="single-form">
-                                    <input type="password" placeholder="mot de passe" required v-model="form.password">
+                                    <input type="password" placeholder="mot de passe" required >
                                     <p> *********** </p>
                                 </div>
                                 <div class="single-form form-btn">
@@ -64,14 +64,13 @@
 //import store from '@/store'
 //import Swal from 'sweetalert2'
 export default {
-  name: 'register',
+  name: 'edit',
   mounted(){
-      this.user = JSON.parse(localStorage.getItem('user'))
-      console.log('user', this.user)
+      
   },
   data(){
       return{
-          user:null,
+          user:JSON.parse(localStorage.getItem('user')),
           form:{
             nom:'',
             prenoms:'',

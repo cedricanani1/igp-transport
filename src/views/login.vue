@@ -91,7 +91,7 @@ export default {
           console.log("rep", reponse.data);
           console.log(reponse.data.access_token);
           localStorage.setItem("token", reponse.data.access_token)
-          localStorage.setItem("user", JSON.stringify(reponse.data.user))
+          localStorage.setItem('user', JSON.stringify(reponse.data.user))
           Swal.fire({title: 'Succes',
             text:'Connexion réussie.',
             icon:'success',

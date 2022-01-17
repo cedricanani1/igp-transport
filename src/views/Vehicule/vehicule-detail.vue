@@ -162,11 +162,11 @@
                                         </div>
                                     </div>
                                     <div class="single-progress">
-                                        <div class="progress-star" id='deux'>
+                                        <div class="progress-star">
                                             <span>2 Etoiles</span>
                                         </div>
                                         <div class="progress-line">
-                                            <div class="line-bar"></div>
+                                            <div class="line-bar" id='deux'></div>
                                         </div>
                                         <div class="progress-percent">
                                             <span> ({{ Math.round((deux/100)*rates.length) }}) </span>

@@ -115,7 +115,8 @@
 </template>
 <script>
 import axios from 'axios'
-import store from '@/store'
+//import store from '@/store'
+import Swal from 'sweetalert2'
 
 export default {
     data(){
@@ -126,7 +127,7 @@ export default {
     },
     mounted(){
         let app=this
-        axios.get('/orders/'+this.$route.params.id, { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+        axios.get('/orders/'+this.$route.params.id)
         .then(function (reponse){
             app.com = reponse.data.data
             app.cart = reponse.data.data.cart
@@ -135,6 +136,12 @@ export default {
         })
         .catch(function (error){
             console.log('err',error)
+            Swal.fire({title: 'Erreur',
+            text:'Echec de récupération des données',
+            icon:'error',
+            showConfirmButton: false,
+            timer:3000
+          });
         })
     }
 }

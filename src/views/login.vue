@@ -83,7 +83,7 @@ export default {
   methods: {
     submit() {
       axios.post(
-           /* 'https://igp-auth.lce-ci.com/api/auth/login' */  "http://192.168.1.11:8004/api/auth/login" ,
+           'https://igp-auth.lce-ci.com/api/auth/login' ,
           this.formlog
         )
         .then(function (reponse) {
@@ -104,7 +104,7 @@ export default {
         .catch((error) => {
           
           Swal.fire({title: 'Erreur',
-            text:'Une erreur s\'est produite.',
+            text:'Données incorrectes. Veuillez réessayer',
             icon:'error',
             showConfirmButton: false,
             timer:3000

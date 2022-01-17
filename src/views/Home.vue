@@ -121,47 +121,6 @@
                         </div>
                     </table>
                     </div>
-                    <!-- <div class="tab-pane fade" id="tab2" role="tabpanel">
-                        <div class="car-row cars-active">
-                            <div class="car-col">
-                                <div class="single-car-item mt-50">
-                                    <div class="car-image">
-                                        <a href="inventory-single-classified.html">
-                                            <img src="assets/images/cars/car-2.jpg" alt="">
-                                        </a>
-                                        <ul class="car-meta">
-                                            <li>
-                                                <button type="button">
-                                                    <i class="ion-ios-loop-strong"></i>
-                                                    <span class="car-tooltip compare">Add To Compare </span>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button">
-                                                    <i class="ion-arrow-expand"></i>
-                                                    <span class="car-tooltip View">Click To View</span>
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button type="button">
-                                                    <i class="ion-android-favorite-outline"></i>
-                                                    <span class="car-tooltip favourite">Add To Favourite</span>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="car-content">
-                                        <span class="body-type"><a href="#">Sport Cars</a></span>
-                                        <h4 class="car-title"><a href="inventory-single-classified.html">2018 Chevrolet Camaro </a></h4>
-                                        <span class="price">
-                                            <span class="price-amount">$9,500</span>
-                                        </span>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
                 
                 <div class="cars-more mt-50 text-center">
@@ -202,7 +161,7 @@ export default {
       console.log(store.state.token)
       let tab = []
       let app=this
-      axios.get('/cars', { headers: {"Authorization" : 'Bearer '+  store.state.token  } } )
+      axios.get('/cars')
         .then(function (reponse) {
             console.log('response',reponse.data)
                 reponse.data.forEach(element => {

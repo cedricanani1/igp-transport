@@ -79,7 +79,7 @@ export default {
    signup: function(){
        if (this.form.password == this.form.password_confirmation)
        {
-            axios.post(  /* 'https://igp-auth.lce-ci.com/api/auth/signup' */   "http://192.168.1.11:8004/api/auth/signup" ,
+            axios.post(  'https://igp-auth.lce-ci.com/api/auth/signup' ,
             this.form)
             .then(function (reponse){
                 Swal.fire('Succes',

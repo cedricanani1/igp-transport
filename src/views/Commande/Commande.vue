@@ -16,9 +16,7 @@
                           <div class="col-lg-4">
                                 <div class="dealer-author">
                                     <div class="author-image">
-                                      <!-- <img class="img" :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+value.photo[0]" :alt="value.lib"> -->
-                                      <img class="img" :src="'http://192.168.1.11:8003/Car/'+value.photo[0]" :alt="value.lib">
-                                      
+                                      <img class="img" :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+value.photo[0]" :alt="value.lib"> 
                                     </div>
                                     <div class="author-content">
                                       <router-link :to="{name : 'Detail', params:{ id: value.id}}">  <h4 class="author-name"> {{ value.lib }} </h4> </router-link>

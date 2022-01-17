@@ -40,7 +40,8 @@
 
 <script>
 import axios from 'axios'
-import store from '@/store'
+//import store from '@/store'
+import Swal from 'sweetalert2'
 export default {
     name:'CommandeL',
     data(){
@@ -50,13 +51,18 @@ export default {
     },
     mounted(){
         let app = this
-        axios.get('/orders-client', { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+        axios.get('/orders-client')
             .then(function (reponse) {
                 console.log('reponse',reponse.data)
                 app.cmds = reponse.data   
             }).catch((error)=>{
                 console.log(error)
-                
+                Swal.fire({title: 'Erreur',
+            text:'Echec de récupération des données',
+            icon:'error',
+            showConfirmButton: false,
+            timer:3000
+          });
             }) 
     }
 }

@@ -99,7 +99,7 @@ export default {
           this.user.phone = this.form.phone
           localStorage.setItem('user', JSON.stringify(this.user))
           console.log('usr',store.state.user.prenoms)
-          axios.post('http://192.168.1.11:8004/api/auth/modify-account', this.form,{ headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+          axios.post('http://igp-backend-transport.lce-ci.com/api/auth/modify-account', this.form)
       .then(function (reponse){
           Swal.fire({title: 'Succes',
             text:'Modification réussie.',

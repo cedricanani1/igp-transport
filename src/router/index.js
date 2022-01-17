@@ -12,6 +12,7 @@ import Comm from '../views/Commande/Commander.vue'
 import ComListe from '../views/Commande/Commande-liste.vue'
 import ComDet from '../views/Commande/Commande-détail.vue'
 import Contact from '../views/Contact.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -53,22 +54,38 @@ const routes = [
   {
     path: '/Commande/Commande',
     name: 'Commande',
-    component: Commande
+    component: Commande,
+    beforeEnter (to, from , next) {
+      if (store.state.token == null) next({ name: 'Login' })
+      else next()
+    }
   },
   {
     path: '/Commande/Commander',
     name: 'Commander',
-    component: Comm
+    component: Comm,
+    beforeEnter (to, from , next) {
+      if (store.state.token == null) next({ name: 'Login' })
+      else next()
+    }
   },
   {
     path: '/Commande/Commande-liste',
     name: 'CommandeL',
-    component: ComListe
+    component: ComListe,
+    beforeEnter (to, from , next) {
+      if (store.state.token == null ) next({ name: 'Login' })
+      else next()
+    }
   },
   {
-    path: '/Commande/Commande-détail/:id',
+    path: '/Commande/Commande-detail/:id',
     name: 'CommandeD',
-    component: ComDet
+    component: ComDet,
+    beforeEnter (to, from , next) {
+      if (store.state.token == null) next({ name: 'Login' })
+      else next()
+    }
   },
   {
     path: '/contact',

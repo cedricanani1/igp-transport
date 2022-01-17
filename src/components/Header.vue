@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="header-main-wrapper d-flex justify-content-between align-items-center">
                     <div class="header-brand">
-                        <a href="index.html">
+                        <a href="https://igp.lce-ci.com/">
                             <img class="custom-logo" src="assets/images/logo.jpg" syle="height:50px" alt="">
                         </a>
                     </div>
@@ -95,7 +95,7 @@
         <div class="container">
             <div class="header-mobile-wrapper d-flex justify-content-between align-items-center">
                 <div class="header-mobile-logo">
-                    <a href="index.html">
+                    <a href="https://igp.lce-ci.com/">
                         <img class="custom-logo" src="assets/images/logo.jpg" style="" alt="">
                     </a>
                 </div>
@@ -137,7 +137,7 @@ export default ({
     },
     methods:{
         logout: function(){
-            axios.get(/* 'https://igp-auth.lce-ci.com/api/auth/logout' */ "http://192.168.1.11:8004/api/auth/logout", { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+            axios.get('https://igp-auth.lce-ci.com/api/auth/logout')
             .then(function (reponse){
                 Swal.fire({title:'Succes',
                     text:'Déconnecté correctement.',
@@ -146,7 +146,7 @@ export default ({
                     timer:3000
                 })
                 localStorage.removeItem('user')
-                store.state.token = null
+                localStorage.removeItem('token')
                 console.log('reponse', reponse)
                 window.location.href = '/'
             })

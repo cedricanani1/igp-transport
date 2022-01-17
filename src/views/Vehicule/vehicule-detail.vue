@@ -7,8 +7,7 @@
         <div class="inventory-image-gallery">
             <div class="inventory-gallery-active">
                 <div class="single-image-gallery">
-                    <!-- <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+newt[0]" > -->
-                    <img class="img" :src="'http://192.168.1.11:8003/Car/'+newt[0]" :alt="car.libelle">
+                    <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+newt[0]" > 
                 </div>
             </div>
         </div>
@@ -379,7 +378,7 @@ export default {
           
       },
       evaluate:function(){
-          axios.post('/rating',this.rating, { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+          axios.post('/rating',this.rating)
             .then(function(reponse){
                 console.log('rep',reponse)
                     Swal.fire('Succes',
@@ -448,6 +447,15 @@ export default {
             console.log('p',app.car.photo)
             console.log('t',app.newt)
             
+        })
+        .catch(function (error){
+            console.log(error)
+            Swal.fire({title: 'Erreur',
+            text:'Echec de récupération des données',
+            icon:'error',
+            showConfirmButton: false,
+            timer:3000
+          });
         })
       }
   },

@@ -36,24 +36,24 @@
                                     <div class="single-field col-lg-3 col-sm-6">
                                         Marque
                                         <div></div>
-                                        <select v-model="search.marque_id">
-                                            <option value="" selected>Choisir une marque</option>
+                                        <select v-model="search.marque_id" class="form-control">
+                                            <option :value="0">Choisir une marque</option>
                                             <option v-for="(marque,index) in marques" :key="index" :value="marque.id" > {{ marque.libelle }} </option>                                                                                          
                                         </select>
                                     </div>
                                     <div class="single-field col-lg-3 col-sm-6">
                                              Types
                                             <div></div>
-                                            <select v-model="search.type_id">
-                                                <option value="" selected>Choisir un type</option>
+                                            <select v-model="search.type_id" class="form-control">
+                                                <option :value="0">Choisir un type</option>
                                                 <option v-for="(type,index) in types" :key="index" :value="type.id" > {{ type.libelle }} </option>                 
                                             </select>
                                     </div>
                                     <div class="single-field col-lg-3 col-sm-6">
                                         Prix
                                         <div></div>
-                                        <select v-model="price">
-                                            <option :value="[0,150000]" selected>Tous les prix</option>
+                                        <select v-model="price" class="form-control">
+                                            <option :value="[0,150000]">Tous les prix</option>
                                             <option :value="[3000,5000]">FCFA 3,000-FCFA 5,000</option>
                                             <option :value="[10000,15000]">FCFA 10,000-FCFA 15,000</option>
                                             <option :value="[20000,25000]">FCFA 20,000-FCFA 25,000</option>
@@ -102,8 +102,8 @@
                                         <div class="single-browse-item text-center">
                                             <router-link :to="{name : 'Detail', params:{ id: vehicule.id}}">
                                             <div  v-if="vehicule.images[0]">
-                                            <!-- <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+vehicule.images[0]"> --> 
-                                            <img :src="'http://192.168.1.11:8003/Car/'+vehicule.images[0]" :alt="vehicule.libelle">
+                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+vehicule.images[0]"> 
+                                            
                                             </div></router-link>                          
                                             <div class="car-content">
                                                 <ul class="car-meta">
@@ -132,8 +132,7 @@
                                         <div class="single-browse-item text-center">
                                             <router-link :to="{name : 'Detail', params:{ id: result.id}}">
                                             <div  v-if="result.images[0]">
-                                            <!-- <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+result.images[0]">  -->
-                                            <img :src="'http://192.168.1.11:8003/Car/'+result.images[0]" :alt="result.libelle">
+                                             <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+result.images[0]">  
                                             </div></router-link>                          
                                             <div class="car-content">
                                                 <ul class="car-meta">
@@ -170,7 +169,7 @@
 </template>
 <script>
 import axios from 'axios'
-import store from '@/store'
+//import store from '@/store'
 import Swal from 'sweetalert2'
 
 export default {
@@ -183,11 +182,11 @@ export default {
             types : [],
             strUser: '',
             load: false,
-            price:'',
+            price:'0,150000',
             search:{
-                type_id:null,
-                marque_id:null,
-                price:[],
+                type_id:0,
+                marque_id:0,
+                price: [],
             },
             results:[],
         }
@@ -195,12 +194,12 @@ export default {
     methods:{
         
         search_car: function (){
-            if(this.search.type_id != null && this.search.marque_id != null){
+            if(this.search.type_id != 0 || this.search.marque_id != 0){
                 let app = this
                 let tab =[]
                 app.search.price = app.price.split(',')
                 console.log(app.search)
-                axios.post('/searchCar', app.search, { headers: {"Authorization" : 'Bearer '+  store.state.token  } })
+                axios.post('/searchCar', app.search)
                 .then(function (reponse){
                     console.log('rep',reponse.data)
                     reponse.data.forEach(element => {
@@ -246,7 +245,7 @@ export default {
     mounted(){
 
         let app = this
-        axios.get('/cars', { headers: {"Authorization" : 'Bearer '+  store.state.token  } } )
+        axios.get('/cars')
         .then(function (reponse) {
             console.log('response',reponse.data)
             let tab =[]
@@ -265,9 +264,15 @@ export default {
         })
         .catch(function (error){
                  console.log('err',error)
+                 Swal.fire({title: 'Erreur',
+            text:'Echec de récupération des données',
+            icon:'error',
+            showConfirmButton: false,
+            timer:3000
+          });
              })
 
-        axios.get('/car-marques', { headers: {"Authorization" : 'Bearer '+  store.state.token  } } )
+        axios.get('/car-marques' )
         .then(function (reponse) {
             console.log('response',reponse.data)
             app.marques = reponse.data
@@ -276,7 +281,7 @@ export default {
                  console.log('err',error)
              })
 
-        axios.get('/car-types', { headers: {"Authorization" : 'Bearer '+  store.state.token  } } )
+        axios.get('/car-types' )
         .then(function (reponse) {
             console.log('resp-data',reponse.data)
             app.types = reponse.data

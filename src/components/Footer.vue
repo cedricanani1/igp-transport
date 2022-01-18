@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="footer-text-wrapper d-flex flex-wrap align-items-center justify-content-between">
                     <div class="footer-copyright">
-                        <p>&copy; 2021 <span> Ivoire Goodies Performances</span> by <a href="https://lce-ci.com/">LCE-CI</a></p>
+                        <p>&copy; 2022 <span> Ivoire Goodies Performances</span> by <a href="https://lce-ci.com/">LCE-CI</a></p>
                     </div>
                 </div>
             </div>

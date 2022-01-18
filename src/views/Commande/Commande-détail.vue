@@ -46,11 +46,16 @@
                                             <span class="value" v-else> Sans </span>
                                         </span>
                                     </div>
-                                    <div class="col-md-6 col-sm-4 col-6 glance-col">
+                                    <div class="col-md-3 col-sm-4 col-6 glance-col">
                                         <span class="glance">
                                             
                                             <span class="label">période</span>
                                             <span class="value"> Du {{ el.from }} au {{ el.to }} ({{ el.days }} jours) </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 col-6 glance-col">
+                                        <span class="glance">
+                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/'+ img[index]" :alt="el.car.libelle">
                                         </span>
                                     </div>
                                 </div>
@@ -123,16 +128,24 @@ export default {
         return{
             com:[],
             cart:[],
+            img:[],
         }
     },
     mounted(){
         let app=this
+        let tab = []
         axios.get('/orders/'+this.$route.params.id)
         .then(function (reponse){
             app.com = reponse.data.data
             app.cart = reponse.data.data.cart
             console.log('com',app.com)
 
+            app.cart.forEach(element => {
+                        tab = element.car.photo.split(';')
+                        element.images = tab 
+                        element.images.pop()
+                        app.img.push(element.images)
+                    })
         })
         .catch(function (error){
             console.log('err',error)

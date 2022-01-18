@@ -102,7 +102,7 @@
                                         <div class="single-browse-item text-center">
                                             <router-link :to="{name : 'Detail', params:{ id: vehicule.id}}">
                                             <div  v-if="vehicule.images[0]">
-                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+vehicule.images[0]"> 
+                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/'+vehicule.images[0]"> 
                                             
                                             </div></router-link>                          
                                             <div class="car-content">
@@ -132,7 +132,7 @@
                                         <div class="single-browse-item text-center">
                                             <router-link :to="{name : 'Detail', params:{ id: result.id}}">
                                             <div  v-if="result.images[0]">
-                                             <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+result.images[0]">  
+                                             <img :src="'https://igp-backend-transport.lce-ci.com/public/'+result.images[0]">  
                                             </div></router-link>                          
                                             <div class="car-content">
                                                 <ul class="car-meta">

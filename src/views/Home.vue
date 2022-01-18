@@ -95,12 +95,12 @@
                     <div class="tab-pane fade show active" id="tab1" role="tabpanel">
                         <table> 
                         <div class="browse-wrapper">
-                            <tr class="row">
+                                <tr class="row">
                                     <td width="300px" class="col-md-3 col-6" v-for="popular in populars" :key="popular.id">                                   
-                                        <div class="single-browse-item text-center">
+                                        <div class="single-browse-item text-center" >
                                             <router-link :to="{name : 'Detail', params:{ id: popular.id}}">
                                             <div  v-if="popular.images[0]">
-                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+popular.images[0]"> 
+                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/'+popular.images[0]"> 
                                             </div></router-link>                          
                                             <div class="car-content">
                                                 <ul class="car-meta">
@@ -117,7 +117,7 @@
                                             </div>
                                         </div>
                                     </td>
-                            </tr>
+                                </tr>
                         </div>
                     </table>
                     </div>

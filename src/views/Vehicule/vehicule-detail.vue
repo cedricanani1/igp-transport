@@ -7,7 +7,7 @@
         <div class="inventory-image-gallery">
             <div class="inventory-gallery-active">
                 <div class="single-image-gallery">
-                    <img :src="'https://igp-backend-transport.lce-ci.com/public/Car/'+newt[0]" > 
+                    <img :src="'https://igp-backend-transport.lce-ci.com/public/'+newt[0]" > 
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
                 
                 <div class="title-price">
                     <div class="title-excerpt">
-                        <h3 class="entry-title"> {{ car.libelle }} <i class="ion-android-checkmark-circle"></i></h3>
+                        <h5 > {{ car.libelle }} <i class="ion-android-checkmark-circle"></i></h5>
                     </div>
                     
                     <div class="price">

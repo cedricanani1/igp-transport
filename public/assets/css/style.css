@@ -3195,7 +3195,7 @@ p {
 }
 
 .single-car-item .car-content .price .price-amount {
-  font-size: 24px;
+  font-size: 14px;
   color: #eb6435;
   font-weight: 700;
   font-style: italic;
@@ -4102,7 +4102,7 @@ p {
 }
 
 .single-car-item-list .car-content .price .sale-price {
-  font-size: 24px;
+  font-size: 18px;
   line-height: 30px;
   color: #ec3922;
   font-weight: 700;
@@ -9861,7 +9861,7 @@ p {
 }
 
 .inventory-single-content .title-price .title-excerpt .entry-title {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 700;
   color: #435d96;
 }

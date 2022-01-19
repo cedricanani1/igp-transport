@@ -378,15 +378,17 @@ export default {
           
       },
       evaluate:function(){
-          axios.post('/rating',this.rating)
+          if (store.state.token){
+              axios.post('/rating',this.rating)
             .then(function(reponse){
                 console.log('rep',reponse)
-                    Swal.fire('Succes',
+                if (reponse.data){
+                        Swal.fire('Succes',
                     'Evaluation enregistrée.',
                         'success'
                     )
-                    location.reload()
-                    
+                    window.location.reload()
+                }
             })
             .catch((error) =>{
                 Swal.fire('Erreur',
@@ -400,6 +402,21 @@ export default {
                     this.rating.object = ''
                     this.nom = ''
                     this.mail = ''
+          }
+          else{
+              Swal.fire({title: 'Erreur',
+            text:'Veuillez vous connecter pour accéder à cette connexion.',
+            icon:'error',
+            showConfirmButton: false,
+            timer:3000
+          }
+                    )
+            this.rating.rate = null
+                    this.rating.message = ''
+                    this.rating.object = ''
+                    this.nom = ''
+                    this.mail = ''
+          }
       },
       getcar(){
             

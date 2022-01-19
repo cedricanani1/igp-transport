@@ -65,7 +65,7 @@
                 <div class="header-social-compare-login d-flex align-items-center">
                     <div class="header-compare-login">
                         <ul class="compare-login">
-                            <li v-if="user != null">
+                            <li>
                                 <router-link :to="{name : 'Commande'}">
                                     <i class="ion-ios-loop-strong"></i> 
                                     <span>Panier</span> 
@@ -102,7 +102,7 @@
                 <div class="header-mobile-meta">
                     <ul class="meta d-flex">
                         <li><a class="toggle-bar navbar-mobile-open" href="javascript:;"><i class="ion-navicon"></i></a></li>
-                        <li v-if="user != null">
+                        <li>
                                 <router-link :to="{name : 'Commande'}">
                                     <i class="ion-ios-loop-strong"></i> 
                                     <span class="compare-badge"> {{ data.length }} </span>

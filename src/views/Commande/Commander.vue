@@ -58,8 +58,8 @@
                                         </div>
                                         <label for="contact">Contact : </label>
                                         <div class="single-input">
-                                            <input type="text" id="contact" v-model="dt.phone" required> 
-                                            
+                                            <input type="tel" id="contact" placeholder="XX-XX-XX-XX-XX" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" v-model="dt.phone" required> 
+                                            <p>format : XXXXXXXXXX</p>
                                         </div>
                                         <label for="dest">Destination : </label>
                                         <div class="single-input">
@@ -140,6 +140,7 @@ export default {
     data(){
         return{
             info : [],
+            user:store.state.user,
             dt: {
                 id: null, 
                 order_number: 'COM012405X',
@@ -185,6 +186,7 @@ export default {
     }
     },
     mounted(){
+        this.dt = this.user
         this.info = store.state.data
         this.dt.cart = this.info
         console.log('cart', this.dt.cart)

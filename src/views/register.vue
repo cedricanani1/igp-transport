@@ -20,7 +20,7 @@
                                     <input type="text" placeholder="prenoms" required v-model="form.prenoms">
                                 </div>
                                 <div class="single-form">
-                                    <input type="text" placeholder="contact" required v-model="form.phone">
+                                    <input type="tel" placeholder="contact : XXXXXXXXXX" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required v-model="form.phone">
                                 </div>
                                 <div class="single-form">
                                     <input type="text" placeholder="e-mail" required v-model="form.email">

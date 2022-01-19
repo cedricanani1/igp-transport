@@ -55,10 +55,6 @@ const routes = [
     path: '/Commande/Commande',
     name: 'Commande',
     component: Commande,
-    beforeEnter (to, from , next) {
-      if (store.state.token == null) next({ name: 'Login' })
-      else next()
-    }
   },
   {
     path: '/Commande/Commander',

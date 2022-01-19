@@ -22,7 +22,7 @@
                                     <p>Donnée actuelle : {{ user.prenoms }} </p>
                                 </div>
                                 <div class="single-form">
-                                    <input type="text" placeholder="contact" required v-model="form.phone">
+                                    <input type="tel" placeholder="XX-XX-XX-XX-XX" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required v-model="form.phone">
                                     <p>Donnée actuelle : {{ user.phone }} </p>
                                 </div>
                                 <div class="single-form">
@@ -71,10 +71,7 @@ import Swal from 'sweetalert2'
 export default {
   name: 'edit',
   mounted(){
-      this.form.nom = this.user.nom
-      this.form.prenoms = this.user.prenoms
-      this.form.phone = this.user.phone
-      this.form.email = this.user.email
+      
   },
   data(){
       return{

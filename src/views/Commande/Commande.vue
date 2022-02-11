@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="dealer-info-phone">
                                       <br>
-                                        Louée du : {{ value.from }} <br> Au : {{ value.to }}
+                                        Louée du : {{ value.rfrom }} <br> Au : {{ value.rto }}
                                     </div>
                             </div>
                           </div>
@@ -49,10 +49,22 @@
                   <div class="single-dealer">
                       
                   </div>  
-                  <div v-if="info.length > 0">
-                    <router-link :to="{name : 'Commander'}">
-                      <button class="main-btn" > Commander </button>
-                    </router-link>
+                  <div v-if="info.length > 0 && user != null">
+                    <div v-if="user.email_verified_at">
+                      <router-link :to="{name : 'Commander'}">
+                        <button class="main-btn" > Commander </button>
+                      </router-link>
+                    </div>
+                    <div v-else>
+                      <p>Votre compte n'est pas activé. Vous n'êtes pas autorisés à commander.</p>
+                    </div>
+                  </div>
+                  <div v-if="info.length > 0 && user == null">
+                    <div>
+                      <router-link :to="{name : 'Commander'}">
+                        <button class="main-btn" > Commander </button>
+                      </router-link>
+                    </div>
                   </div>
                 </div>
     </section>
@@ -73,6 +85,8 @@
 <script>
 import store from '@/store'
 //import axios from 'axios'
+import moment from 'moment'
+moment.locale('fr');
 export default {
     
   name: 'Commande',  
@@ -92,12 +106,16 @@ export default {
   data(){
     return{
       info : [],
+      user: store.state.user
     }
   },
   mounted(){
     this.info = store.state.data
     console.log('log_db',this.info)      
-    
+    this.info.forEach(element => {
+      element.rfrom = moment(element.from).format("Do/MM/YYYY")
+      element.rto = moment(element.to).format("Do/MM/YYYY")
+    })
   }
 }
 console.log('state',store.state.data)

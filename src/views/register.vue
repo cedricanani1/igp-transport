@@ -23,6 +23,12 @@
                                     <input type="tel" placeholder="contact : XXXXXXXXXX" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" required v-model="form.phone">
                                 </div>
                                 <div class="single-form">
+                                    <input type="text" placeholder="ville" required v-model="form.ville">
+                                </div>
+                                <div class="single-form">
+                                    <input type="text" placeholder="commune" required v-model="form.commune">
+                                </div>
+                                <div class="single-form">
                                     <input type="text" placeholder="e-mail" required v-model="form.email">
                                 </div>
                                 <div class="single-form">
@@ -59,6 +65,7 @@
 
 <script>
 import axios from 'axios'
+import router from '@/router'
 //import store from '@/store'
 import Swal from 'sweetalert2'
 export default {
@@ -70,27 +77,41 @@ export default {
             prenoms:'',
             phone:'',
             email:'',
+            ville:'',
+            commune:'',
             password:'',
             password_confirmation:'',
+            module: "Transport",
+            url: 'http://192.168.1.5:8082/'
           }
       }
   },
   methods: {
+
    signup: function(){
        if (this.form.password == this.form.password_confirmation)
        {
-            axios.post(  'https://igp-auth.lce-ci.com/api/auth/signup' ,
+            axios.post('https://igp-auth.lce-ci.com/api/auth/signup',
             this.form)
             .then(function (reponse){
-                Swal.fire('Succes',
+                if (reponse.data.status == true) {
+                    Swal.fire('Succes',
                     'Compte enregistré correctement.',
                     'success'
                 )
                 console.log('rep',reponse.data)
+                router.push('/')
+                }
+                else{
+                    Swal.fire('Echec',
+                    'Compte non enregistré.',
+                    'error'
+                )
+                }
             })
             .catch(function (error){
-                Swal.fire('Echec',
-                    'Echec d\'inscription. Veuillez réessayer SVP.',
+                Swal.fire('Erreur',
+                    'Erreur. Veuillez réessayer SVP.',
                     'error'
                 )
                 console.log(error)

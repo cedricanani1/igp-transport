@@ -14707,32 +14707,31 @@ p {
   color: #737f96;
   text-transform: uppercase;
   background-color: #f5f6f6;
-  padding: 8px 20px;
+  margin: auto;
   vertical-align: middle;
-  min-width: 300px;
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .vehicle-compare-table .table tr th {
-    min-width: 250px;
+    min-width: 100px;
   }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .vehicle-compare-table .table tr th {
-    min-width: 250px;
+    min-width: 100px;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .vehicle-compare-table .table tr th {
-    min-width: 250px;
+    min-width: 100px;
   }
 }
 
 @media (max-width: 767px) {
   .vehicle-compare-table .table tr th {
-    min-width: 250px;
+    min-width: 100px;
   }
 }
 
@@ -14747,25 +14746,25 @@ p {
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .vehicle-compare-table .table tr td {
-    min-width: 250px;
+    min-width: 100px;
   }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .vehicle-compare-table .table tr td {
-    min-width: 250px;
+    min-width: 100px;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .vehicle-compare-table .table tr td {
-    min-width: 250px;
+    min-width: 100px;
   }
 }
 
 @media (max-width: 767px) {
   .vehicle-compare-table .table tr td {
-    min-width: 250px;
+    min-width: 100px;
     font-size: 14px;
     padding: 8px 20px;
   }

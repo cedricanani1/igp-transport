@@ -74,7 +74,7 @@
                             </li>
                             <li v-if="user != null">
                                 <router-link :to="{name : 'edit'}">
-                                    <i class="ion-ios-contact-outline"></i><span>{{ user.nom }} {{ user.prenoms }} </span>
+                                    <i class="ion-ios-contact-outline"></i><span>{{ user.nom }} {{ user.prenoms.split(' ')[0] }} </span>
                                 </router-link>
                             </li>       
                             <li v-if="user != null" @click="logout"><router-link :to="{name : 'Home'}"><i class="ion-android-person"></i><span>Se déconnecter</span></router-link></li>                    

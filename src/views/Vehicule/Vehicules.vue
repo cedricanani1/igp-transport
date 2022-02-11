@@ -88,27 +88,26 @@
         <div class="container">
             <div class="cars-tab-menu">
                     <ul class="nav" role="tablist">
-                        <li><a data-bs-toggle="tab" href="#tab1" role="tab" class="main-btn active">Voir tous les véhicules</a></li>
+                        <li><a class="active main-btn" data-bs-toggle="tab" href="#grid" role="tab">Voir tous les véhicules</a></li>
                         <li> &nbsp; </li>
                         <li><a data-bs-toggle="tab" href="#tab2" role="tab" class="main-btn">Voir les résultats de recherche</a></li> 
                     </ul>
-                </div>
+            </div>
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-                    <table> 
-                        <div class="browse-wrapper">
-                            <tr class="row">
-                                    <td width="300px" class="col-md-3 col-6" v-for="vehicule in vehicules" :key="vehicule.id">                                   
-                                        <div class="single-browse-item text-center">
-                                            <router-link :to="{name : 'Detail', params:{ id: vehicule.id}}">
-                                            <div  v-if="vehicule.images[0]">
-                                            <img :src="'https://igp-backend-transport.lce-ci.com/public/'+vehicule.images[0]"> 
-                                            
-                                            </div></router-link>                          
+                <div class="tab-pane fade grid show active" id="grid" role="tabpanel">
+                        <div class="browse-wrapper" >
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6" v-for="vehicule in paginatedvehicles" :key="vehicule.id">
+                                        <div class="single-car-item-2 mt-50">
+                                            <div class="car-image"  v-if="vehicule.images[0]">
+                                                <router-link :to="{name : 'Detail', params:{ id: vehicule.id}}">
+                                                    <img :src="'https://igp-backend-transport.lce-ci.com/public/'+vehicule.images[0]"> 
+                                                </router-link>
+                                            </div>                        
                                             <div class="car-content">
                                                 <ul class="car-meta">
                                                     <router-link :to="{name : 'Detail', params:{ id: vehicule.id}}"><h4 class="car-title">{{ vehicule.libelle.toUpperCase() }} - <span class="body-type">{{ vehicule.type.libelle }}</span></h4></router-link>
-                                                    
+                                                    <br>
                                                     <li><i class="ion-speedometer"></i> {{ vehicule.transmission.toUpperCase() }}</li>
                                                     <li>
                                                         <span class="price">
@@ -119,25 +118,44 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </td>
-                            </tr>
+                                </div>
+                                
+                            </div> 
                         </div>
-                    </table>
+
+                        <ul class="pagination" v-if="vehicules.length > 5 || currentPage > 1">
+                        
+                    
+                            <li class="pagination-item" >
+                                <button @click="onClickFirstPage" :disabled="isInPreviousPage" class="main-btn">
+                                    Précédent
+                                </button>
+                            </li>
+                        
+                            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                            <li class="pagination-item" >
+                                <button @click="onClickNextPage" :disabled="isInLastPage" class="main-btn">
+                                    Suivant
+                                </button>
+                            </li>
+                        
+                            
+                        </ul>
                 </div>
                 <div class="tab-pane fade" id="tab2" role="tabpanel">
-                    <table> 
-                        <div class="browse-wrapper">
-                            <tr class="row">
-                                    <td width="300px" class="col-md-3 col-6" v-for="(result,index) in results" :key="index">                                   
-                                        <div class="single-browse-item text-center">
-                                            <router-link :to="{name : 'Detail', params:{ id: result.id}}">
-                                            <div  v-if="result.images[0]">
-                                             <img :src="'https://igp-backend-transport.lce-ci.com/public/'+result.images[0]">  
-                                            </div></router-link>                          
+                        <div class="browse-wrapper" >
+                            <div class="row" id="easyPaginate">
+                                <div class="col-lg-4 col-md-6" v-for="result in paginatedResults" :key="result.id">
+                                        <div class="single-car-item-2 mt-50">
+                                            <div class="car-image"  v-if="result.images[0]">
+                                                <router-link :to="{name : 'Detail', params:{ id: result.id}}">
+                                                    <img :src="'https://igp-backend-transport.lce-ci.com/public/'+result.images[0]" > 
+                                                </router-link>
+                                            </div>                        
                                             <div class="car-content">
                                                 <ul class="car-meta">
                                                     <router-link :to="{name : 'Detail', params:{ id: result.id}}"><h4 class="car-title">{{ result.libelle.toUpperCase() }} - <span class="body-type">{{ result.type.libelle }}</span></h4></router-link>
-                                                    
+                                                    <br>
                                                     <li><i class="ion-speedometer"></i> {{ result.transmission.toUpperCase() }}</li>
                                                     <li>
                                                         <span class="price">
@@ -148,10 +166,30 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </td>
-                            </tr>
+                                </div>
+                                
+                            </div> 
                         </div>
-                    </table>
+
+                        <ul class="pagination" v-if="results.length > 5 || currentPage > 1">
+                        
+                    
+                            <li class="pagination-item" >
+                                <button @click="onClickPreviousPage" :disabled="isInFirstPage" class="main-btn">
+                                    Précédent
+                                </button>
+                            </li>
+                        
+                            <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+
+                            <li class="pagination-item" >
+                                <button @click="onClickNextPage" :disabled="isInLastPage" class="main-btn">
+                                    Suivant
+                                </button>
+                            </li>
+                        
+                            
+                        </ul>
                 </div>
             </div>
         </div>
@@ -171,9 +209,54 @@
 import axios from 'axios'
 //import store from '@/store'
 import Swal from 'sweetalert2'
+//import $ from "jquery"
+
 
 export default {
   name: 'Vehicules',
+  props:[
+        "total",
+        "pageChanged"
+  ],
+    computed:{
+        paginatedResults(){
+            let start = (this.currentPage * this.perPage) - this.perPage
+            let end = start + this.perPage
+            return this.results.slice(start, end)
+        },
+        paginatedvehicles(){
+            let start = (this.currentPage * this.perPage) - this.perPage
+            let end = start + this.perPage
+            return this.vehicules.slice(start, end)
+        },
+        startPage(){
+            if (this.currentPage === 1) return 1
+            if (this.currentPage === this.totalPages) return this.totalPages - this.maxVisibleButtons + (this.maxVisibleButtons - 1)
+            return this.currentPage - 1
+        },
+        endPage(){
+            return Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages)
+        },
+        pages(){
+            let range = []
+            for (let i = this.startPage; i <= this.endPage; i++) {
+                range.push({
+                    number: i,
+                    isDisabled : i === this.currentPage
+                })
+            }
+            return range
+        },
+        isInFirstPage(){
+            return this.currentPage === 1
+        },
+        isInLastPage(){
+            return this.currentPage === this.totalPages
+        },
+    },
+components: {
+    
+},
   data() {
         return {
             vehicules: [],
@@ -189,10 +272,33 @@ export default {
                 price: [],
             },
             results:[],
+            currentPage:1,
+            perPage:6,
+            totalPages:Math.ceil( this.total / this.perPage)
         }
     },
     methods:{
-        
+        onPageChange(page){
+            return this.currentPage = page;
+        },
+        onClickFirstPage(){
+            this.onPageChange(1)
+        },
+        onClickPreviousPage(){
+            this.onPageChange(this.currentPage - 1)
+        },
+        onClickNextPage(){
+            this.onPageChange(this.currentPage + 1)
+        },
+        onClickLastPage(){
+            this.onPageChange(this.totalPages)
+        },
+        onClickPage(page){
+            this.onPageChange(page)
+        },
+        isActivePage(page){
+            return this.currentPage === page
+        },
         search_car: function (){
             if(this.search.type_id != 0 || this.search.marque_id != 0){
                 let app = this
@@ -243,7 +349,7 @@ export default {
         }
     },
     mounted(){
-
+        
         let app = this
         axios.get('/cars')
         .then(function (reponse) {
@@ -258,6 +364,7 @@ export default {
                     element.images.pop()
                     
                 });
+                
                 app.vehicules = reponse.data
                 
             } 

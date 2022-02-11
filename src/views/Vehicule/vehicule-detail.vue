@@ -263,7 +263,7 @@
                                         </div>
                                         <label for="db_loc">Debut de location : </label>
                                         <div class="single-input">
-                                            <input type="date" id="db_loc" v-model="from" > 
+                                            <input type="date" id="db_loc" v-model="from" :min="today"> 
                                             <i class="ion-clock"></i>
                                         </div>
                                         <label for="fn_loc">Fin de location : </label>
@@ -288,18 +288,23 @@
 import store from '@/store'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import moment from 'moment';
+moment.locale('fr');
+
 export default {
     
   name: 'Vehicule-detail',
   methods:{
       add: function () {    
+          
         let span = Date.parse(this.to) - Date.parse(this.from)
         let jours = (((span / 1000) / 60) / 60) / 24
         console.log('j',jours)
-           console.log('db',typeof(this.from))
+           console.log('db',this.from)
            console
                 .log('stamp',Date.parse(this.from))
             console.log('fn',this.to)
+            
         if (this.from == "" || this.to == "" || (this.driver != 0 && this.driver != 1))
         {
             Swal.fire('Renseignez TOUS les détails de réservation !')
@@ -367,6 +372,7 @@ export default {
           }
           this.rating.rate = yo
           console.log('rate',this.rating.rate)
+          console.log('tooo',this.to);
       },
       ratedo: function(start){
           console.log('test',start)
@@ -387,7 +393,6 @@ export default {
                     'Evaluation enregistrée.',
                         'success'
                     )
-                    window.location.reload()
                 }
             })
             .catch((error) =>{
@@ -405,10 +410,9 @@ export default {
           }
           else{
               Swal.fire({title: 'Erreur',
-            text:'Veuillez vous connecter pour accéder à cette connexion.',
+            text:'Veuillez vous connecter pour accéder à cette fonction.',
             icon:'error',
-            showConfirmButton: false,
-            timer:3000
+            timer:15000
           }
                     )
             this.rating.rate = null
@@ -456,7 +460,7 @@ export default {
             document.getElementById('un').style.width = app.un+"%"
             console.log('resp', app.cinq)
             app.car = reponse.data
-
+            console.log('rep',reponse.data)
             app.newt = app.car.photo.split(';')
             
             app.car.photo = app.newt
@@ -478,6 +482,7 @@ export default {
   },
     data() {
         return {
+            today: null,
             newt:[],
             car: {},
             rates:[],
@@ -505,8 +510,11 @@ export default {
     },
     mounted(){
         this.getcar()
+        this.today = new Date().toJSON().slice(0,10);
         //localStorage.removeItem('data')
         this.panier = store.state.data
+        console.log('today',this.today);
+        
         console.log('init panier', store.state.data)
         
     },

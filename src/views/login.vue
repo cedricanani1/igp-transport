@@ -35,8 +35,12 @@
                   "
                 >
                   <div class="single-form">
+                    <router-link :to="{ name: 'fmdp' }">
+                      Mot de passe oublié ?
+                    </router-link><br>
+                    Pas de compte ?
                     <router-link :to="{ name: 'register' }">
-                      Pas de compte ?
+                      Créez-en un ici
                     </router-link>
                   </div>
                 </div>
@@ -74,23 +78,27 @@ export default {
         email: '',
         password: '',
       },
+      
     };
   },
   components: {},
   mounted(){
-    
+    console.log('redirect',this.$route.query.redirect)
   },
   methods: {
     submit() {
+      let app=this
       axios.post(
            'https://igp-auth.lce-ci.com/api/auth/login' ,
-          this.formlog
+          app.formlog
         )
         .then(function (reponse) {
           console.log("rep", reponse.data);
           console.log(reponse.data.access_token);
           if(reponse.data.access_token){
-              localStorage.setItem("token", reponse.data.access_token)
+              
+              
+            localStorage.setItem("token", reponse.data.access_token)
             localStorage.setItem('user', JSON.stringify(reponse.data.user))
             Swal.fire({title: 'Succes',
               text:'Connexion réussie.',
@@ -98,13 +106,21 @@ export default {
               showConfirmButton: false,
               timer:3000
             });
-            window.location.href = '/'
-            } 
+            window.location.href= app.$route.query.redirect || '/'
+          } 
+          else{
+              Swal.fire({title: 'Erreur',
+            text:'Données incorrectes. Veuillez réessayer',
+            icon:'error',
+            showConfirmButton: false,
+            timer:3000
+          });
+            }
         })
         .catch((error) => {
           
           Swal.fire({title: 'Erreur',
-            text:'Données incorrectes. Veuillez réessayer',
+            text:'Erreur inconnue. Veuillez réessayer',
             icon:'error',
             showConfirmButton: false,
             timer:3000

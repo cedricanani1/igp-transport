@@ -50,7 +50,7 @@
                                         <span class="glance">
                                             
                                             <span class="label">période</span>
-                                            <span class="value"> Du {{ el.from }} au {{ el.to }} ({{ el.days }} jours) </span>
+                                            <span class="value"> Du {{ el.realfrom }} au {{ el.realto }} ({{ el.days }} jours) </span>
                                         </span>
                                     </div>
                                     <div class="col-md-3 col-sm-4 col-6 glance-col">
@@ -122,6 +122,9 @@
 import axios from 'axios'
 //import store from '@/store'
 import Swal from 'sweetalert2'
+import moment from 'moment';
+moment.locale('fr');
+
 
 export default {
     data(){
@@ -145,6 +148,8 @@ export default {
                         element.images = tab 
                         element.images.pop()
                         app.img.push(element.images)
+                        element.realfrom = moment(element.from).format("Do/MM/YYYY")
+                        element.realto = moment(element.to).format("Do/MM/YYYY")
                     })
         })
         .catch(function (error){

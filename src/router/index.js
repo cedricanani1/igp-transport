@@ -1,7 +1,9 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Add from '../views/add-car.vue'
+import Activate from '../views/activate-alert.vue'
 import Login from '../views/login.vue'
+import Fmdp from '../views/fmdp.vue'
+import Recovery from '../views/Recovery.vue'
 import Register from '../views/register.vue'
 import Edit from '../views/edit.vue'
 import About from '../views/About.vue'
@@ -13,6 +15,7 @@ import ComListe from '../views/Commande/Commande-liste.vue'
 import ComDet from '../views/Commande/Commande-détail.vue'
 import Contact from '../views/Contact.vue'
 import store from '@/store'
+import Err from '../views/404.vue'
 
 const routes = [
   {
@@ -20,15 +23,26 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/add-car',
-    name: 'add-car',
-    component: Add
-  },
+  
   {
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/fmdp',
+    name: 'fmdp',
+    component: Fmdp
+  },
+  {
+    path: '/recovery-password/:email/:token',
+    name: 'recoveryPassword',
+    component: Recovery
+  },
+  {
+    path: '/activate-account/:email/:token',
+    name: 'activateAccount',
+    component: Activate
   },
   {
     path: '/reg',
@@ -60,28 +74,19 @@ const routes = [
     path: '/Commande/Commander',
     name: 'Commander',
     component: Comm,
-    beforeEnter (to, from , next) {
-      if (store.state.token == null) next({ name: 'Login' })
-      else next()
-    }
+    meta: { requiresAuth: true }
   },
   {
     path: '/Commande/Commande-liste',
     name: 'CommandeL',
     component: ComListe,
-    beforeEnter (to, from , next) {
-      if (store.state.token == null ) next({ name: 'Login' })
-      else next()
-    }
+    meta: { requiresAuth: true }
   },
   {
     path: '/Commande/Commande-detail/:id',
     name: 'CommandeD',
     component: ComDet,
-    beforeEnter (to, from , next) {
-      if (store.state.token == null) next({ name: 'Login' })
-      else next()
-    }
+    meta: { requiresAuth: true }
   },
   {
     path: '/contact',
@@ -93,11 +98,27 @@ const routes = [
     name: 'About',
     component: About
   },
+  { path: '/:pathMatch(.*)*', component: Err },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.state.token == null) {
+            next({
+                path: "/login",
+                query: { redirect: to.fullPath }
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 
 export default router
